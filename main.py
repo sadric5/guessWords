@@ -6,7 +6,8 @@ def main(word):
 
 	placeHoldForWord = ['__' for i in word]
 
-	checker = True
+
+	checker = True #make sure we are not lock in endless loop
 	cloneWord = list(word)
 	while checker:
 
