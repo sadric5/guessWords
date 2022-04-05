@@ -1,4 +1,5 @@
 import re
+from databases import wordFind
 
 def main(word):
 	print("Let's start our guessing Letter Game :)\n")
@@ -18,17 +19,22 @@ def main(word):
 			letterPosition = cloneWord.index(userLetter)
 			cloneWord[letterPosition] = "+"
 			placeHoldForWord[letterPosition] = userLetter
-		elif userLetter=="!" or "".join(placeHoldForWord)==word:
-			checker = False
+		elif userLetter=="!":
+			break
 
 
 
 
 		print(".".join(placeHoldForWord))
 
+		if "".join(placeHoldForWord)==word:
+			print("Congratulation !!!")
+			break
+
 
 
 
 
 if __name__ == '__main__':
-	main("HELLO")
+
+	main(wordFind())
