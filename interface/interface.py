@@ -1,33 +1,39 @@
 # User interface of interactions
 
+from ctypes import alignment
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QRect, Qt
 from PyQt5.QtGui import QColor
 import sys
-from numpy import rec
 
-from pyparsing import col
 
+def clicked():
+		print("Hello")
 
 class Window(QWidget):
 
+
+
 	def __init__(self):
 		QWidget.__init__(self)
-		self.setWindowTitle("Guessing Word Game :)")
+		self.setWindowTitle("Guessing Word Game :)" )
+		
 		self.setFixedSize(410, 610)
-		self.setStyleSheet("background:#809292")
+		self.setStyleSheet("background:#225560")
 
 		layout = QVBoxLayout()
 		self.setLayout(layout)
 
 		#create label
-		timeLabel = QLabel("Time")
+		timeLabel = QLabel("Time", alignment=Qt.AlignCenter)
 		timeLabel.setFixedSize(100, 43)
-		timeLabel.setStyleSheet("Background:#A3A798; padding-left:20px; padding-right:20px")
+		timeLabel.setStyleSheet("Background:#225560; padding-left:20px; padding-right:20px;")
 
-		gameTitleLabel = QLabel("Guessing Game :)")
+		# print(timeLabel.getContentsMargins())
+
+		gameTitleLabel = QLabel("Guessing Game :)", alignment=Qt.AlignCenter)
 		gameTitleLabel.setFixedSize(253, 62)
-		gameTitleLabel.setStyleSheet("background:#ABCCD8; border-radius:20px; padding-left:15px")
+		gameTitleLabel.setStyleSheet("background:#171219; border-radius:20px; padding-left:15px; color: white")
 
 		username = QLineEdit()
 		username.setPlaceholderText("Username")
@@ -44,6 +50,10 @@ class Window(QWidget):
 		loginLabel = QPushButton("LOGIN")
 		loginLabel.setFixedSize(152, 46)
 		loginLabel.setStyleSheet("background:#8A997A; color:red")
+		loginLabel.clicked.connect(clicked)
+		loginLabel.move(10, 10)
+
+
 
 		# add label to the window
 		layout.addWidget(timeLabel, alignment= Qt.AlignRight)
@@ -52,7 +62,7 @@ class Window(QWidget):
 		layout.addWidget(passwordL, alignment=Qt.AlignJustify)
 		layout.addWidget(loginLabel, alignment=Qt.AlignJustify)
 
-
+	
 
 
 
