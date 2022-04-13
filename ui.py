@@ -76,11 +76,17 @@ class Window(QMainWindow):
 
 	def sign_ui(self):
 		self.basic_ui()
-		self.username = QLineEdit()
-		self.username.setPlaceholderText("Username")
-		self.username.setMaxLength(25)
-		self.username.setTextMargins(10, 10, 10, 10)
-		self.username.setStyleSheet("background:#D3D3D3")
+		self.signInUsername = QLineEdit()
+		self.signInUsername.setPlaceholderText("username")
+		self.signInUsername.setMaxLength(25)
+		self.signInUsername.setTextMargins(10, 10, 10, 10)
+		self.signInUsername.setStyleSheet("background:#D3D3D3")
+
+		self.passwordL1 = QLineEdit()
+		self.passwordL1.setPlaceholderText("Confirm Password")
+		self.passwordL1.setTextMargins(10, 10, 10, 10)
+		self.passwordL1.setStyleSheet("background:#D3D3D3")
+		self.passwordL1.setEchoMode(QLineEdit.EchoMode.Password)
 
 		self.passwordL2 = QLineEdit()
 		self.passwordL2.setPlaceholderText("Confirm Password")
@@ -88,10 +94,10 @@ class Window(QMainWindow):
 		self.passwordL2.setStyleSheet("background:#D3D3D3")
 		self.passwordL2.setEchoMode(QLineEdit.EchoMode.Password)
 
-		self.loginLabel = QPushButton("Sign In")
-		self.loginLabel.setFixedSize(152, 46)
-		self.loginLabel.setStyleSheet("background:#8A997A; color:red")
-		self.loginLabel.clicked.connect(self.createUserCheck)
+		self.signInLabel = QPushButton("Sign In")
+		self.signInLabel.setFixedSize(152, 46)
+		self.signInLabel.setStyleSheet("background:#8A997A; color:red")
+		self.signInLabel.clicked.connect(self.createUser)
 
 		#Login tag
 		self.loginTagInSignIn = QPushButton("LogIn")
@@ -103,10 +109,10 @@ class Window(QMainWindow):
 		# add label to the window
 		self.layout.addWidget(self.timeLabel, alignment= Qt.AlignRight)
 		self.layout.addWidget(self.gameTitleLabel, alignment=Qt.AlignJustify)
-		self.layout.addWidget(self.username, alignment=Qt.AlignJustify)
-		self.layout.addWidget(self.passwordL, alignment=Qt.AlignJustify)
+		self.layout.addWidget(self.signInUsername, alignment=Qt.AlignJustify)
+		self.layout.addWidget(self.passwordL1, alignment=Qt.AlignJustify)
 		self.layout.addWidget(self.passwordL2, alignment=Qt.AlignJustify)
-		self.layout.addWidget(self.loginLabel, alignment=Qt.AlignJustify)
+		self.layout.addWidget(self.signInLabel, alignment=Qt.AlignJustify)
 		self.layout.addWidget(self.loginTagInSignIn, alignment=Qt.AlignJustify)
 
 	def game_ui(self, username):
@@ -200,8 +206,14 @@ class Window(QMainWindow):
 		else:
 			self.gameTitleLabel.setText("Wrong username or password. Try again:)")
 
-		def createUserCheck(self):
-			pass
+	def createUser(self):
+		val = permissionsToAddNewUser(self.signInUsername.text(), self.passwordL1.text(), self.passwordL2.text())
+		if val[0]:
+			self.gameTitleLabel.setText(val[1])
+			self.runLogin_ui()
+		else:
+			self.gameTitleLabel.setText(val[1])
+		
 	
 	def getWord(self):
 		self.word = getRandomWord()
