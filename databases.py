@@ -1,7 +1,7 @@
 # Return random words based on the user desired field
 from mysql import connector
 from credential import *
-import hashlib
+import hashlib, random
 
 #connect To The Database
 my_db = connector.connect (
@@ -35,10 +35,18 @@ def createUser(username, password):
 	mycursor.execute(sql)
 	my_db.commit()
 
+def getRandomWord():
+	wordId = random.randint(1, 2)
+	
+	sql = """ SELECT word FROM dictionary WHERE id={} """.format(wordId)
+	mycursor.execute(sql)
+	data = mycursor.fetchone()
+	return data[0]
 
 
 if __name__ == "__main__":	
-	createUser("Dove", "Kent")
+	# createUser("Dove", "Kent")
+	print(getRandomWord())
 
 
 
