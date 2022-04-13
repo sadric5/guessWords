@@ -22,8 +22,8 @@ class Window(QMainWindow):
 		self.setWindowTitle("Guessing Word Game :)" )
 		self.setFixedSize(410, 610)
 		self.setStyleSheet("background:#225560")
-		# self.login_ui()
-		self.game_ui("Dove")
+		self.login_ui()
+		self.placeHoldForWord =[]
 
 	def basic_ui(self):
 		self.mainC = QWidget()
@@ -143,14 +143,13 @@ class Window(QMainWindow):
 		self.startGame.clicked.connect(self.getWord)
 		
 
-		self.wordField = QLineEdit()
+		self.wordField = QLineEdit(alignment=Qt.AlignCenter)
 		self.wordField.setReadOnly(True)
-		self.wordField.setBaseSize(80, 50)
-		# self.wordField.setMaximumHeight(50)
-		self.wordField.setPlaceholderText("_______")
+		self.wordField.setFixedSize(280,50)
+		self.wordField.setPlaceholderText("Press the green button to start :)")
 		self.wordField.setMaxLength(25)
-		self.wordField.setTextMargins(0, 10, 0, 10)
-		self.wordField.setStyleSheet("background:#D3D3D3; font-size:30px")
+		self.wordField.setTextMargins(10, 0, 0, 10)
+		self.wordField.setStyleSheet("background:#D3D3D3; font-size:18px")
 
 		self.wordLabel = QLabel("Type a letter: ", alignment=Qt.AlignCenter)
 		self.wordLabel.setFixedSize(120, 50)
@@ -201,12 +200,15 @@ class Window(QMainWindow):
 		else:
 			self.gameTitleLabel.setText("Wrong username or password. Try again:)")
 
-	def createUserCheck(self):
-		pass
+		def createUserCheck(self):
+			pass
 	
 	def getWord(self):
 		self.word = getRandomWord()
+		self.cloneWord = list(self.word)
 		self.placeHoldForWord = ['__' for i in self.word]
+		self.wordField.setText(".".join(self.placeHoldForWord))
+		# self.wordField.adjustSize()
 
 		self.startGame.setText("Press to get Word")
 
@@ -214,20 +216,22 @@ class Window(QMainWindow):
 		letter = self.yourLetter.text().lower()
 		word = self.word.lower()
 
-		cloneWord = list(word)
-
-		if letter in cloneWord:
-			letterPosition = cloneWord.index(letter)
-			cloneWord[letterPosition] = "+"
+		if letter in self.cloneWord:
+			letterPosition = self.cloneWord.index(letter)
+			self.cloneWord[letterPosition] = "+"
 			self.placeHoldForWord[letterPosition] = letter
-		elif letter=="!":
-			pass
+			self.yourLetter.setText("")
+		else:
+			self.yourLetter.setText("")
+			self.yourLetter.setPlaceholderText("?")
 
 
 		self.wordField.setText(".".join(self.placeHoldForWord))
+		# self.wordField.adjustSize()
 
 		if "".join(self.placeHoldForWord)==word:
 			self.gameTitleLabel.setText("CONGRATULATION !!")
+			self.startGame.setText("Press to play again")
 
 	
 
