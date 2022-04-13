@@ -3,7 +3,7 @@ from databases import authenticateUser, createUser
 
 
 def authorizeAccess(username, password):
-    return authenticateUser(username, password)
+    return (username, authenticateUser(username, password))
 
 def permissionsToAddNewUser(username, password, password2):
     # check for the password requirement before create user.
