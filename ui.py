@@ -246,8 +246,6 @@ class Window(QMainWindow):
 			self.startGame.setText("Press to play again")
 
 	
-
-
 if __name__ == '__main__':
     
     app = QApplication(sys.argv)
