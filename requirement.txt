@@ -1,0 +1,10 @@
+Package                Version
+---------------------- -------
+mysql-connector-python 8.0.29
+pip                    22.0.4
+protobuf               3.20.1
+PyQt5                  5.15.6
+PyQt5-Qt5              5.15.2
+PyQt5-sip              12.10.1
+setuptools             61.2.0
+wheel                  0.37.1
